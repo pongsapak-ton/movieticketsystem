@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 import tkinter.font
+from select import *
 Font_tuple = ("Comic Sans MS", 20, "bold")
 def exit_program():
    exit()
@@ -21,7 +22,7 @@ def movie(screen):
     label.place(x=0, y=0)
     label.config(font=Font_tuple)
 
-    buttton_1 = tk.Button(screen1, text= 'JUMANJI',bg = 'red',width=15 ,height = 1)
+    buttton_1 = tk.Button(screen1, text= 'JUMANJI',command = lambda:select_seat(screen),bg = 'red',width=15 ,height = 1)
     buttton_1.place(x=80 , y = 110)
     buttton_1.config(font = Font_tuple)
 
