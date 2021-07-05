@@ -1,10 +1,11 @@
 from tkinter import *
 #from functools import partial
-
+import sqlite3
 
 #from functools import partial
 
-
+conn=sqlite3.connect('user.db')
+c=conn.cursor()
 
 
 def login_user(screen):
@@ -12,7 +13,8 @@ def login_user(screen):
     password_info=password.get()
     print(password_info)
 
-    
+    c.execute('''SELECT passwd FROM user WHERE name = ?''',(username_info,))
+    a=c.fetchone()
     # print(str(a))
     # print(type(a))
     c.execute('''SELECT mail FROM user WHERE name = ?''',(username_info,))
@@ -21,7 +23,8 @@ def login_user(screen):
     if password_info in a:
         # messagebox.showinfo('CONGRATULATIONS','Login successful')
         Label(screen1,text="LOGIN sucess",fg="green",font=("calibri",11)).pack()
-       
+        c.execute('''SELECT mail FROM user WHERE name = ?''',(username_info,))
+        b=c.fetchall()
         
         onClickLogin(username_info,b) 
         # moviePage(username_info,b)
@@ -30,7 +33,7 @@ def login_user(screen):
         
 
     else:
-      
+        messagebox.showinfo('ERROR','Credentials Do Not Match')
         username_entry.delete(0,END)
         password_entry.delete(0,END)
 
