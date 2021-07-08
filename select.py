@@ -20,6 +20,8 @@ def select_seat(screen):
     seatframe.pack(side = TOP,padx= 10 ,pady=30)
     entryframe = Frame(screen1, bg='blue')
     entryframe.pack(side = TOP,padx= 10 ,pady =10)
+    textframe = Frame(screen1)
+    textframe.pack(side = TOP,padx = 20 )
     label = Label(frame, bg='black', fg='white', text="Screen this side", width= 30 ,height = 2)
     label.config(font= Font_tuple)
     label.pack(side = BOTTOM)
@@ -84,15 +86,19 @@ def select_seat(screen):
 
     confirm = tk.Button(seatframe, text = 'confirm' ,width = 10,height =2 ,command = lambda :onClickcomfirm(button_identities))
     confirm.grid(row = 4 ,column = 1,columnspan=2)
-
+    global Lastname
+    global Firstname
+    global phone
+    global Firstname_entry
+    global Lastname_entry
     Lastname = StringVar()
     Firstname = StringVar()
     phone = StringVar()
 
     fname = Label(entryframe, text="FirstName ",font = Font1).grid(column = 0 ,row = 1,padx= 5 ,pady =5)
-    Firsrtname_entry = Entry(entryframe,textvariable=Firstname,width = 20,borderwidth="4")
-    Firsrtname_entry.grid(column = 3 ,row = 1,padx= 5 ,pady =5)
-    Firsrtname_entry.config(borderwidth="2",relief=GROOVE,font= ("Comic Sans MS", 15, "bold"))
+    Firstname_entry = Entry(entryframe,textvariable=Firstname,width = 20,borderwidth="4")
+    Firstname_entry.grid(column = 3 ,row = 1,padx= 5 ,pady =5)
+    Firstname_entry.config(borderwidth="2",relief=GROOVE,font= ("Comic Sans MS", 15, "bold"))
     lname = Label(entryframe, text='LastName',font = Font1).grid(column = 0,row = 2,padx= 5 ,pady =5)
     Lastname_entry = Entry(entryframe,textvariable = Lastname,width = 20 ,borderwidth='4')
     Lastname_entry.grid(column=3, row=2,padx= 5 ,pady =5)
@@ -101,8 +107,47 @@ def select_seat(screen):
     phone_entry = Entry(entryframe,textvariable = phone,width = 20, borderwidth='4')
     phone_entry.grid(column=3, row=3,padx= 5 ,pady =5)
     phone_entry.config(borderwidth="2", relief=GROOVE, font=("Comic Sans MS", 15, "bold"))
-    ok = tk.Button(entryframe,text='ok')
+    ok = tk.Button(entryframe,text='ok',width = 4 ,height = 1,command = lambda :chk_fname(T))
     ok.grid(column= 4 ,row = 1)
+    ok_1 = tk.Button(entryframe,text='ok',width = 4,height= 1,command = lambda :chk_lname(T))
+    ok_1.grid(column = 4 ,row=2)
+    ok_2 = tk.Button(entryframe, text='ok', width=4, height=1,command = lambda : chk_num(T))
+    ok_2.grid(column=4, row=3)
+
+    T = Text(textframe, height=8, width=52)
+    T.pack(side = TOP,padx= 5 ,pady = 5)
+    return T
+
+def chk_fname(T):
+    global Firstname
+    global Firstname_entry
+    first_n = Firstname.get()
+    a = first_n.isdigit()
+    if len(first_n) != 0 and a != True:
+        T.insert(INSERT, 'firstname has been inputed''\n')
+        print(first_n)
+    else:
+        T.insert(INSERT, "invalid input please input a valid name""\n")
+
+
+def chk_lname(T):
+    global Lastname
+    last_n = Lastname.get()
+    a = last_n.isdigit()
+    if len(last_n) !=0 and a != True:
+        T.insert(INSERT, 'Lastname has been inputed''\n')
+
+    else:
+        T.insert(INSERT, "invalid input please input a valid name""\n")
+
+
+def chk_num(T):
+    global phone
+    Phone_num = phone.get()
+    if Phone_num.isdigit() == True and len(Phone_num) != 0 and len(Phone_num) == 10:
+        T.insert(INSERT, "mobile number has been inputed""\n")
+    else:
+        T.insert(INSERT, "invalid input please input a valid mobile number""\n")
 
 
 def onClickseat(Button):
@@ -134,6 +179,10 @@ def onClickcomfirm(allseat):
             print('Seat[0]:', Seat[0])
             print('silver :', Seat)
             silver.append(Seat)
+        elif (Seat[0] in ['D']):
+            print('Seat[0]',Seat[0])
+            print('sofar :',Seat)
+            sofar.append(Seat)
 
 
 
