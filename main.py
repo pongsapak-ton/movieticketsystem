@@ -1,7 +1,14 @@
 import tkinter as tk
 from tkinter import *
 import tkinter.font
+from tkinter.ttk import *
 from select import *
+from login import *
+from movie_renew import *
+import contextvars
+
+
+
 Font_tuple = ("Comic Sans MS", 20, "bold")
 def exit_program():
    exit()
@@ -17,22 +24,33 @@ def movie(screen):
     screen1.title('select movie')
     screen1.geometry('410x480+540+200')
     screen1.resizable(0,0)
+    label_frame = Frame(screen1)
+    label_frame.pack(side=TOP)
+    radio_frame = Frame(screen1)
+    radio_frame.pack(side = TOP,pady = 20)
 
-    label = tk.Label(screen1, text='movieTicketBookingSystem', bg='blue', fg='white', width=25, height=2)
-    label.place(x=0, y=0)
+    label = tk.Label(label_frame, text='movieTicketBookingSystem', bg='blue', fg='white', width=25, height=2)
+    label.pack(side=TOP)
     label.config(font=Font_tuple)
 
-    buttton_1 = tk.Button(screen1, text= 'JUMANJI',command = lambda:select_seat(screen),bg = 'red',width=15 ,height = 1)
-    buttton_1.place(x=80 , y = 110)
-    buttton_1.config(font = Font_tuple)
+    v = StringVar(radio_frame, "1")
 
-    buttton_2 = tk.Button(screen1,text='Ready Player One', bg='red', width=15, height=1)
-    buttton_2.place(x=80, y=210)
-    buttton_2.config(font=Font_tuple)
 
-    buttton_3 = tk.Button(screen1, text='FREE GUY', bg='red', width=15, height=1)
-    buttton_3.place(x=80, y=310)
-    buttton_3.config(font=Font_tuple)
+
+    # Dictionary to create multiple buttons
+    values = {"JUMANJI": "JUMANJI",
+              "Ready Player One": "Ready Player One",
+              "FREE GUY": "FREE GUY"}
+
+    # Loop is used to create multiple Radiobuttons
+    # rather than creating each button separately
+    for (text, value) in values.items():
+
+        Radiobutton(radio_frame, text=text, variable=v, value=value,font=Font_tuple, indicator = 0,
+                background = "light blue").pack(side=TOP, ipady=5,fill='x',pady =10 )
+
+    CnfrmBtn = Button(radio_frame, text="CONFIRM",font= Font_tuple,command = lambda :Movie_page(screen, str(v.get())))
+    CnfrmBtn.pack(side=BOTTOM,ipady=5,pady = 10)
     screen1.mainloop()
 
 
@@ -47,7 +65,7 @@ def main_p():
     label = tk.Label(screen, text = 'movieTicketBookingSystem',bg = 'blue', fg = 'white',width = 25, height = 2)
     label.place(x = 0 , y= 0)
     label.config(font = Font_tuple)
-    button_admin = tk.Button(screen, text = 'admin',command = lambda:admin(screen),bg='red',width = 15 ,height = 1 )
+    button_admin = tk.Button(screen, text = 'admin',command = lambda:login_screen(screen),bg='red',width = 15 ,height = 1 )
     button_admin.config(font = Font_tuple)
     button_admin.place(x=60, y =110)
 

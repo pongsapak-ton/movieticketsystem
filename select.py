@@ -1,15 +1,17 @@
+import tkinter as tk
 from tkinter import *
 import tkinter.font
-import tkinter as tk
+from bill import *
 Font_tuple = ("Comic Sans MS", 20, "bold")
 Font1 = font=("Comic Sans MS", 15, "bold")
 
 button_identities = []
 
-def select_seat(screen):
+def select_seat(screen, movie_name):
     button_identities = []
     global Font_tuple
     global Font1
+
     screen1 = Toplevel(screen)
     screen1.title('select seat')
     screen1.geometry('500x750+980+50')
@@ -17,7 +19,7 @@ def select_seat(screen):
     frame = Frame(screen1)
     frame.pack(side = TOP)
     seatframe = Frame(screen1,bg='#AB432D')
-    seatframe.pack(side = TOP,padx= 10 ,pady=30)
+    seatframe.pack(side = TOP,padx= 10 ,pady=10)
     entryframe = Frame(screen1, bg='blue')
     entryframe.pack(side = TOP,padx= 10 ,pady =10)
     textframe = Frame(screen1)
@@ -25,7 +27,6 @@ def select_seat(screen):
     label = Label(frame, bg='black', fg='white', text="Screen this side", width= 30 ,height = 2)
     label.config(font= Font_tuple)
     label.pack(side = BOTTOM)
-
 
 
     seat_1 = tk.Button(seatframe,text='A1',width = 10 ,height = 2,bg = 'yellow',command = lambda : onClickseat(seat_1))
@@ -116,6 +117,9 @@ def select_seat(screen):
 
     T = Text(textframe, height=8, width=52)
     T.pack(side = TOP,padx= 5 ,pady = 5)
+
+    show_re = tk.Button(textframe,text='PrintTicket',command = lambda :pr_ticket(screen,Lastname,Firstname,phone,movie_name,button_identities,id),font=Font_tuple,width = 20,height = 3)
+    show_re.pack(pady = 20)
     return T
 
 def chk_fname(T):
@@ -183,6 +187,52 @@ def onClickcomfirm(allseat):
             print('Seat[0]',Seat[0])
             print('sofar :',Seat)
             sofar.append(Seat)
+    return selectedseat
 
+
+def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat,id):
+
+    screen1 = Toplevel(screen)
+    screen1.title('select seat')
+    screen1.geometry('500x750+980+50')
+    screen1.resizable(0, 0)
+    id = range(1, 101)
+    sum  = 0
+    a = 0
+    selectedseat = get_select(allseat)
+
+    ticket_fr = Frame(screen1)
+    ticket_fr.pack(side = TOP)
+    message_fr = Frame(screen1)
+    message_fr.pack(side = TOP)
+    ticket = tk.Label(ticket_fr,text='MOVIE TICKET',width = 10 ,height = 2)
+    ticket.pack()
+    book_id = tk.Label(message_fr, text='Booking ID :',font = Font1)
+    book_id2 = tk.Label(message_fr, text=id[a], font=Font1)
+    name = tk.Label(message_fr, text="Firstname :",font = Font1)
+    first = tk.Label(message_fr,text='Lastname :',font = Font1)
+    namel = tk.Label(message_fr,textvariable = Firstname,font = Font1)
+    namef = tk.Label(message_fr,textvariable = Lastname,font = Font1)
+    number = tk.Label(message_fr, text='Number :',font = Font1)
+    numbers = tk.Label(message_fr, textvariable=number,font = Font1)
+    movie = tk.Label(message_fr,text = 'Movie :',font = Font1)
+    movie_n = tk.Label(message_fr,text  = movie_name ,font = Font1)
+    seat = tk.Label(message_fr, text='Seat Number :',font = Font1)
+    seats = tk.Label(message_fr, text=selectedseat,font = Font1)
+    book_id.grid(row = 0,column = 0)
+    book_id2.grid(row=0,column =1)
+    name.grid(row = 1 ,column = 0)
+    namel.grid(row = 1 ,column =1)
+    first.grid(row =2 ,column = 0)
+    namef.grid(row =2 ,column =1 )
+    number.grid(row =3 ,column =0)
+    numbers.grid(row = 3 ,column = 1)
+    movie.grid(row = 4 ,column = 0)
+    movie_n.grid(row =4 ,column = 1)
+    seat.grid(row = 5 ,column =0)
+    seats.grid(row = 5,column= 1)
+    while a < len(id):
+            sum = sum +id[a]
+            a = a+1
 
 
