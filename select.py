@@ -4,7 +4,7 @@ import tkinter.font
 from bill import *
 Font_tuple = ("Comic Sans MS", 20, "bold")
 Font1 = font=("Comic Sans MS", 15, "bold")
-
+id =100
 button_identities = []
 
 def select_seat(screen, movie_name):
@@ -118,7 +118,7 @@ def select_seat(screen, movie_name):
     T = Text(textframe, height=8, width=52)
     T.pack(side = TOP,padx= 5 ,pady = 5)
 
-    show_re = tk.Button(textframe,text='PrintTicket',command = lambda :pr_ticket(screen,Lastname,Firstname,phone,movie_name,button_identities,id),font=Font_tuple,width = 20,height = 3)
+    show_re = tk.Button(textframe,text='PrintTicket',command = lambda :pr_ticket(screen,Lastname,Firstname,phone,movie_name,button_identities,),font=Font_tuple,width = 20,height = 3)
     show_re.pack(pady = 20)
     return T
 
@@ -190,15 +190,15 @@ def onClickcomfirm(allseat):
     return selectedseat
 
 
-def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat,id):
+def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat):
 
     screen1 = Toplevel(screen)
     screen1.title('select seat')
     screen1.geometry('500x750+980+50')
     screen1.resizable(0, 0)
-    id = range(1, 101)
-    sum  = 0
-    a = 0
+    global id
+    sum = 0
+
     selectedseat = get_select(allseat)
 
     ticket_fr = Frame(screen1)
@@ -208,7 +208,8 @@ def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat,id):
     ticket = tk.Label(ticket_fr,text='MOVIE TICKET',width = 10 ,height = 2)
     ticket.pack()
     book_id = tk.Label(message_fr, text='Booking ID :',font = Font1)
-    book_id2 = tk.Label(message_fr, text=id[a], font=Font1)
+    book_id2 = tk.Label(message_fr, text=id, font=Font1 )
+    id+=1
     name = tk.Label(message_fr, text="Firstname :",font = Font1)
     first = tk.Label(message_fr,text='Lastname :',font = Font1)
     namel = tk.Label(message_fr,textvariable = Firstname,font = Font1)
@@ -231,8 +232,6 @@ def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat,id):
     movie_n.grid(row =4 ,column = 1)
     seat.grid(row = 5 ,column =0)
     seats.grid(row = 5,column= 1)
-    while a < len(id):
-            sum = sum +id[a]
-            a = a+1
+
 
 

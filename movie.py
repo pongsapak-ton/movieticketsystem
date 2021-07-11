@@ -1,32 +1,15 @@
-from tkinter import *
 import tkinter as tk
-m = Tk()
-m.option_add("*font", "consolas 30")
-
-def guide(m):
-    photo = tk.PhotoImage(file='Avatar.png')
-    image_label = tk.Label(m,text='Avatar',image = photo)
+from tkinter import *
+import tkinter.font
+from tkinter.ttk import *
+from select import *
+def Movie_page(screen,movie_name):
+    screen1 = Toplevel(screen)
+    screen1.title('picture')
+    screen1.resizable(0, 0)
+    photo = tk.PhotoImage(file='images/'+movie_name +'.png')
+    image_label = tk.Button(screen1,text='Jumanji',image = photo,command=lambda: select_seat(screen, movie_name))
     image_label.pack()
+    screen1.mainloop()
 
-m.mainloop()
 
-def Jumanji1(n):
-    photo = tk.PhotoImage(file='jumanji1.png')
-    image_label = tk.Label(m,text='Jumanji',image = photo)
-    image_label.pack()
-
-m.mainloop()
-
-def ReadyPlayerOne(m):
-    photo = tk.PhotoImage(file='Ready Player One.png')
-    image_label = tk.Label(m,text='Ready Player One',image = photo)
-    image_label.pack()
-
-m.mainloop()
-
-def FreeGuy(m):
-    photo = tk.PhotoImage(file='Free Guy.png')
-    image_label = tk.Label(m,text='FreeGuy',image = photo)
-    image_label.pack()
-
-m.mainloop()

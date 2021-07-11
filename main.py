@@ -59,27 +59,23 @@ def main_p():
     global Font_tuple
     screen = tk.Tk()
     screen.title('movie ticket')
-    screen.geometry('410x480+90+200')
+    screen.geometry('400x350+90+200')
     screen.resizable(0,0)
 
     label = tk.Label(screen, text = 'movieTicketBookingSystem',bg = 'blue', fg = 'white',width = 25, height = 2)
     label.place(x = 0 , y= 0)
     label.config(font = Font_tuple)
-    button_admin = tk.Button(screen, text = 'admin',command = lambda:login_screen(screen),bg='red',width = 15 ,height = 1 )
-    button_admin.config(font = Font_tuple)
-    button_admin.place(x=60, y =110)
+
 
     button_1 = tk.Button(screen, text='purchase ticket',command = lambda:movie(screen),bg= 'red',width = 15 ,height = 1)
-    button_1.place(x=60, y =200)
+    button_1.place(x=70, y =130)
     button_1.config(font = Font_tuple)
 
     button_exit = tk.Button(screen, text='exit',command = lambda:exit_program(),bg= 'black',fg= 'white',width= 5 ,height = 2)
-    button_exit.place(x= 310 , y = 370)
+    button_exit.place(x= 300 , y = 240)
     button_exit.config(font = Font_tuple)
 
-    button_cancel = tk.Button(screen, text = 'cancel booking',bg = 'red' ,fg = 'white', width = 15 , height = 1)
-    button_cancel.place(x = 60 , y = 290)
-    button_cancel.config(font = Font_tuple)
+
 
     print(screen.winfo_screenwidth())
     print(screen.winfo_screenheight())
