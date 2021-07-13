@@ -6,6 +6,77 @@ Font_tuple = ("Comic Sans MS", 20, "bold")
 Font1 = font=("Comic Sans MS", 15, "bold")
 id =100
 button_identities = []
+price = []
+
+def chk_fname(T):
+    global Firstname
+    global Firstname_entry
+    first_n = Firstname.get()
+    a = first_n.isdigit()
+    if len(first_n) != 0 and a != True:
+        T.insert(INSERT, 'firstname has been inputed''\n')
+        print(first_n)
+    else:
+        T.insert(INSERT, "invalid input please input a valid name""\n")
+
+
+def chk_lname(T):
+    global Lastname
+    last_n = Lastname.get()
+    a = last_n.isdigit()
+    if len(last_n) !=0 and a != True:
+        T.insert(INSERT, 'Lastname has been inputed''\n')
+
+    else:
+        T.insert(INSERT, "invalid input please input a valid name""\n")
+
+
+def chk_num(T):
+    global phone
+    Phone_num = phone.get()
+    if Phone_num.isdigit() == True and len(Phone_num) != 0 and len(Phone_num) == 10:
+        T.insert(INSERT, "mobile number has been inputed""\n")
+    else:
+        T.insert(INSERT, "invalid input please input a valid mobile number""\n")
+
+
+def onClickseat(Button):
+    try:
+        Button.configure(state=tk.DISABLED)
+    except:
+        Button.configure(state="disabled")
+
+def get_select(row):
+    selected = []
+    for botton in row :
+        if (botton['state'] == 'disabled'):
+            print(botton, 'selected')
+            seatNum = botton.cget('text')
+            selected.append(seatNum)
+    return selected
+
+def onClickcomfirm(allseat):
+    selectedseat = get_select(allseat)
+    gold = []
+    silver = []
+    sofar = []
+    for Seat in selectedseat :
+        if(Seat[0] in ['A', 'B']):
+            print('Seat[0]:', Seat[0])
+            print('gold:', Seat)
+            gold.append(Seat)
+        elif (Seat[0] in ['C']):
+            print('Seat[0]:', Seat[0])
+            print('silver :', Seat)
+            silver.append(Seat)
+        elif (Seat[0] in ['D']):
+            print('Seat[0]',Seat[0])
+            print('sofar :',Seat)
+            sofar.append(Seat)
+    total = len(gold)*250 + len(silver)*150 + len(sofar)*350
+    price.append(total)
+    return selectedseat,total
+
 
 def select_seat(screen, movie_name):
     button_identities = []
@@ -118,76 +189,10 @@ def select_seat(screen, movie_name):
     T = Text(textframe, height=8, width=52)
     T.pack(side = TOP,padx= 5 ,pady = 5)
 
-    show_re = tk.Button(textframe,text='PrintTicket',command = lambda :pr_ticket(screen,Lastname,Firstname,phone,movie_name,button_identities,),font=Font_tuple,width = 20,height = 3)
+    show_re = tk.Button(textframe,text='PrintTicket',command = lambda :pr_ticket(screen,Lastname,Firstname,phone,movie_name,button_identities),font=Font_tuple,width = 20,height = 3)
     show_re.pack(pady = 20)
     return T
 
-def chk_fname(T):
-    global Firstname
-    global Firstname_entry
-    first_n = Firstname.get()
-    a = first_n.isdigit()
-    if len(first_n) != 0 and a != True:
-        T.insert(INSERT, 'firstname has been inputed''\n')
-        print(first_n)
-    else:
-        T.insert(INSERT, "invalid input please input a valid name""\n")
-
-
-def chk_lname(T):
-    global Lastname
-    last_n = Lastname.get()
-    a = last_n.isdigit()
-    if len(last_n) !=0 and a != True:
-        T.insert(INSERT, 'Lastname has been inputed''\n')
-
-    else:
-        T.insert(INSERT, "invalid input please input a valid name""\n")
-
-
-def chk_num(T):
-    global phone
-    Phone_num = phone.get()
-    if Phone_num.isdigit() == True and len(Phone_num) != 0 and len(Phone_num) == 10:
-        T.insert(INSERT, "mobile number has been inputed""\n")
-    else:
-        T.insert(INSERT, "invalid input please input a valid mobile number""\n")
-
-
-def onClickseat(Button):
-    try:
-        Button.configure(state=tk.DISABLED)
-    except:
-        Button.configure(state="disabled")
-
-def get_select(row):
-    selected = []
-    for botton in row :
-        if (botton['state'] == 'disabled'):
-            print(botton, 'selected')
-            seatNum = botton.cget('text')
-            selected.append(seatNum)
-    return selected
-
-def onClickcomfirm(allseat):
-    selectedseat = get_select(allseat)
-    gold = []
-    silver = []
-    sofar = []
-    for Seat in selectedseat :
-        if(Seat[0] in ['A', 'B']):
-            print('Seat[0]:', Seat[0])
-            print('gold:', Seat)
-            gold.append(Seat)
-        elif (Seat[0] in ['C']):
-            print('Seat[0]:', Seat[0])
-            print('silver :', Seat)
-            silver.append(Seat)
-        elif (Seat[0] in ['D']):
-            print('Seat[0]',Seat[0])
-            print('sofar :',Seat)
-            sofar.append(Seat)
-    return selectedseat
 
 
 def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat):
@@ -215,11 +220,18 @@ def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat):
     namel = tk.Label(message_fr,textvariable = Firstname,font = Font1)
     namef = tk.Label(message_fr,textvariable = Lastname,font = Font1)
     number = tk.Label(message_fr, text='Number :',font = Font1)
-    numbers = tk.Label(message_fr, textvariable=number,font = Font1)
+    numbers = tk.Label(message_fr, textvariable=phone,font = Font1)
     movie = tk.Label(message_fr,text = 'Movie :',font = Font1)
     movie_n = tk.Label(message_fr,text  = movie_name ,font = Font1)
     seat = tk.Label(message_fr, text='Seat Number :',font = Font1)
     seats = tk.Label(message_fr, text=selectedseat,font = Font1)
+    pr = tk.Label(message_fr,text = 'Price :',font= Font1)
+    pr1 = tk.Label(message_fr,text = price, font= Font1)
+    pr2 = tk.Label(message_fr,text ='Baht', font=Font1)
+    pr2.grid(row = 6 ,column = 2)
+
+    pr.grid(row = 6 ,column = 0)
+    pr1.grid(row = 6 ,column =1)
     book_id.grid(row = 0,column = 0)
     book_id2.grid(row=0,column =1)
     name.grid(row = 1 ,column = 0)
