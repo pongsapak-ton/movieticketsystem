@@ -13,9 +13,8 @@ Font_tuple = ("Comic Sans MS", 20, "bold")
 def exit_program():
    exit()
 
-def admin(screen):
-    screen2 = Toplevel(screen)
-    screen2.title('admin')
+def Close(screen):
+    screen.destroy()
 
 def movie(screen):
     global Font_tuple
@@ -51,7 +50,12 @@ def movie(screen):
 
     CnfrmBtn = Button(radio_frame, text="CONFIRM",font= Font_tuple,command = lambda :Movie_page(screen, str(v.get())))
     CnfrmBtn.pack(side=BOTTOM,ipady=5,pady = 10)
+
     screen1.mainloop()
+
+
+
+
 
 
 def main_p():
@@ -67,7 +71,7 @@ def main_p():
     label.config(font = Font_tuple)
 
 
-    button_1 = tk.Button(screen, text='purchase ticket',command = lambda:movie(screen),bg= 'red',width = 15 ,height = 1)
+    button_1 = tk.Button(screen, text='purchase ticket',command = lambda:movie(screen),bg= 'red',width = 15 ,height = 1,disabledforeground="#bfbfbf")
     button_1.place(x=70, y =130)
     button_1.config(font = Font_tuple)
 

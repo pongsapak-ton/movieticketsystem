@@ -1,44 +1,15 @@
 import tkinter as tk
 from tkinter import *
 import tkinter.font
-from bill import *
+
 Font_tuple = ("Comic Sans MS", 20, "bold")
 Font1 = font=("Comic Sans MS", 15, "bold")
 id =100
 button_identities = []
 price = []
 
-def chk_fname(T):
-    global Firstname
-    global Firstname_entry
-    first_n = Firstname.get()
-    a = first_n.isdigit()
-    if len(first_n) != 0 and a != True:
-        T.insert(INSERT, 'firstname has been inputed''\n')
-        print(first_n)
-    else:
-        T.insert(INSERT, "invalid input please input a valid name""\n")
-
-
-def chk_lname(T):
-    global Lastname
-    last_n = Lastname.get()
-    a = last_n.isdigit()
-    if len(last_n) !=0 and a != True:
-        T.insert(INSERT, 'Lastname has been inputed''\n')
-
-    else:
-        T.insert(INSERT, "invalid input please input a valid name""\n")
-
-
-def chk_num(T):
-    global phone
-    Phone_num = phone.get()
-    if Phone_num.isdigit() == True and len(Phone_num) != 0 and len(Phone_num) == 10:
-        T.insert(INSERT, "mobile number has been inputed""\n")
-    else:
-        T.insert(INSERT, "invalid input please input a valid mobile number""\n")
-
+def exit_program():
+   exit()
 
 def onClickseat(Button):
     try:
@@ -55,7 +26,7 @@ def get_select(row):
             selected.append(seatNum)
     return selected
 
-def onClickcomfirm(allseat):
+def onClickcomfirm(time,allseat,Lastname, Firstname, phone,movie_name,ticket_fr,message_fr):
     selectedseat = get_select(allseat)
     gold = []
     silver = []
@@ -75,26 +46,30 @@ def onClickcomfirm(allseat):
             sofar.append(Seat)
     total = len(gold)*250 + len(silver)*150 + len(sofar)*350
     price.append(total)
+    pr_ticket(time,Lastname,Firstname,phone,movie_name,allseat,ticket_fr,message_fr)
+    print(selectedseat)
     return selectedseat,total
 
 
-def select_seat(screen, movie_name):
+def select_seat(time,screen, movie_name ,Lastname, Firstname, phone):
     button_identities = []
     global Font_tuple
     global Font1
 
-    screen1 = Toplevel(screen)
-    screen1.title('select seat')
-    screen1.geometry('500x750+980+50')
-    screen1.resizable(0, 0)
-    frame = Frame(screen1)
+    screen2 = Toplevel(screen)
+    screen2.title('select seat')
+    screen2.geometry('500x750')
+    screen2.resizable(0, 0)
+    frame = Frame(screen2)
     frame.pack(side = TOP)
-    seatframe = Frame(screen1,bg='#AB432D')
+    seatframe = Frame(screen2,bg='#AB432D')
     seatframe.pack(side = TOP,padx= 10 ,pady=10)
-    entryframe = Frame(screen1, bg='blue')
-    entryframe.pack(side = TOP,padx= 10 ,pady =10)
-    textframe = Frame(screen1)
-    textframe.pack(side = TOP,padx = 20 )
+
+    ticket_fr = Frame(screen2)
+    ticket_fr.pack(side=TOP)
+    message_fr = Frame(screen2)
+    message_fr.pack(side=TOP)
+
     label = Label(frame, bg='black', fg='white', text="Screen this side", width= 30 ,height = 2)
     label.config(font= Font_tuple)
     label.pack(side = BOTTOM)
@@ -156,60 +131,23 @@ def select_seat(screen, movie_name):
     seat_14.grid(column = 2 ,row =3,columnspan=2 ,padx= 5 ,pady =5)
     button_identities.append(seat_14)
 
-    confirm = tk.Button(seatframe, text = 'confirm' ,width = 10,height =2 ,command = lambda :onClickcomfirm(button_identities))
+    confirm = tk.Button(seatframe, text = 'confirm' ,width = 10,height =2 ,command = lambda :onClickcomfirm(time,button_identities,Lastname, Firstname, phone,movie_name,ticket_fr,message_fr))
     confirm.grid(row = 4 ,column = 1,columnspan=2)
-    global Lastname
-    global Firstname
-    global phone
-    global Firstname_entry
-    global Lastname_entry
-    Lastname = StringVar()
-    Firstname = StringVar()
-    phone = StringVar()
 
-    fname = Label(entryframe, text="FirstName ",font = Font1).grid(column = 0 ,row = 1,padx= 5 ,pady =5)
-    Firstname_entry = Entry(entryframe,textvariable=Firstname,width = 20,borderwidth="4")
-    Firstname_entry.grid(column = 3 ,row = 1,padx= 5 ,pady =5)
-    Firstname_entry.config(borderwidth="2",relief=GROOVE,font= ("Comic Sans MS", 15, "bold"))
-    lname = Label(entryframe, text='LastName',font = Font1).grid(column = 0,row = 2,padx= 5 ,pady =5)
-    Lastname_entry = Entry(entryframe,textvariable = Lastname,width = 20 ,borderwidth='4')
-    Lastname_entry.grid(column=3, row=2,padx= 5 ,pady =5)
-    Lastname_entry.config(borderwidth="2", relief=GROOVE, font=("Comic Sans MS", 15, "bold"))
-    phone_label= Label(entryframe,text="Phone",font = Font1).grid(column = 0,row= 3,padx= 5 ,pady =5)
-    phone_entry = Entry(entryframe,textvariable = phone,width = 20, borderwidth='4')
-    phone_entry.grid(column=3, row=3,padx= 5 ,pady =5)
-    phone_entry.config(borderwidth="2", relief=GROOVE, font=("Comic Sans MS", 15, "bold"))
-    ok = tk.Button(entryframe,text='ok',width = 4 ,height = 1,command = lambda :chk_fname(T))
-    ok.grid(column= 4 ,row = 1)
-    ok_1 = tk.Button(entryframe,text='ok',width = 4,height= 1,command = lambda :chk_lname(T))
-    ok_1.grid(column = 4 ,row=2)
-    ok_2 = tk.Button(entryframe, text='ok', width=4, height=1,command = lambda : chk_num(T))
-    ok_2.grid(column=4, row=3)
-
-    T = Text(textframe, height=8, width=52)
-    T.pack(side = TOP,padx= 5 ,pady = 5)
-
-    show_re = tk.Button(textframe,text='PrintTicket',command = lambda :pr_ticket(screen,Lastname,Firstname,phone,movie_name,button_identities),font=Font_tuple,width = 20,height = 3)
-    show_re.pack(pady = 20)
-    return T
+    out = tk.Button(seatframe,text ='exit',width = 4 ,height = 2,command = lambda :exit()).grid(row = 4 ,column = 3)
+    return button_identities ,ticket_fr,message_fr
 
 
 
-def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat):
+def pr_ticket(time,Lastname,Firstname,phone,movie_name,allseat,ticket_fr,message_fr):
 
-    screen1 = Toplevel(screen)
-    screen1.title('select seat')
-    screen1.geometry('500x750+980+50')
-    screen1.resizable(0, 0)
     global id
     sum = 0
 
+
     selectedseat = get_select(allseat)
 
-    ticket_fr = Frame(screen1)
-    ticket_fr.pack(side = TOP)
-    message_fr = Frame(screen1)
-    message_fr.pack(side = TOP)
+    print(phone.get())
     ticket = tk.Label(ticket_fr,text='MOVIE TICKET',width = 10 ,height = 2)
     ticket.pack()
     book_id = tk.Label(message_fr, text='Booking ID :',font = Font1)
@@ -228,10 +166,11 @@ def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat):
     pr = tk.Label(message_fr,text = 'Price :',font= Font1)
     pr1 = tk.Label(message_fr,text = price, font= Font1)
     pr2 = tk.Label(message_fr,text ='Baht', font=Font1)
-    pr2.grid(row = 6 ,column = 2)
 
-    pr.grid(row = 6 ,column = 0)
-    pr1.grid(row = 6 ,column =1)
+    time1 = tk.Label(message_fr,text = 'time :',font = Font1)
+    times = tk.Label(message_fr,text = time , font = Font1)
+
+
     book_id.grid(row = 0,column = 0)
     book_id2.grid(row=0,column =1)
     name.grid(row = 1 ,column = 0)
@@ -244,6 +183,11 @@ def pr_ticket(screen,Lastname,Firstname,phone,movie_name,allseat):
     movie_n.grid(row =4 ,column = 1)
     seat.grid(row = 5 ,column =0)
     seats.grid(row = 5,column= 1)
+    time1.grid(row = 6 ,column = 0)
+    times.grid(row = 6,column = 1)
+    pr2.grid(row=7, column=2)
+    pr.grid(row=7, column=0)
+    pr1.grid(row=7, column=1)
 
 
 
