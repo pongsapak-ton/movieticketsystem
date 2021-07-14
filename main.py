@@ -1,3 +1,10 @@
+#นายพงศภัค ฟุ้งทวีวงศ์ 6310301020
+#นายชวัลวิทย์ วงศ์สงวน 6310301024
+#นายพัชรพงษ์ สุทธิยุทธ์ 6310301026
+#Github : https://github.com/pongsapak-ton/movieticketsystem
+
+
+
 import tkinter as tk
 from tkinter import *
 import tkinter.font
